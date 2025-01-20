@@ -1,16 +1,19 @@
 const snakeChar = document.getElementById("snake-body");
+const gameArea = document.getElementById("game-grid");
+
 let xPos = 0;
 let yPos = 0;
 let direction = "ArrowRight";
-let snakeSpeed = 1000;
+let snakeSpeed = 500;
+
+const maxX = window.innerWidth;
+const maxY = window.innerHeight;
+const step = 48;
+
 getDir()
 
 setInterval(() => {
-    const step = 48;
-    const maxX = window.innerWidth;
-    const maxY = window.innerHeight;
-
-    if (xPos <= 0) {
+        if (xPos <= 0) {
         xPos = 0;
     }
     else if (xPos >= maxX - step) {
@@ -56,6 +59,8 @@ setInterval(() => {
 
     snakeChar.style.left = `${xPos}px`;
     snakeChar.style.top = `${yPos}px`;
+
+    populateApples();
 }, snakeSpeed)
 
 function getDir() {
@@ -80,3 +85,15 @@ function getDir() {
     } 
 }
 
+function populateApples() {
+    let apple = document.getElementById("apple");
+    console.log((apple.style.left == snakeChar.style.left) && (apple.style.top == snakeChar.style.top));
+    if ((apple.style.left == snakeChar.style.left) && (apple.style.top == snakeChar.style.top)) {
+        apple.remove();
+        let newApple = document.createElement("div");
+        newApple.id = "apple";
+        newApple.style.left = Math.floor(Math.random * (maxX - step));
+        newApple.style.top = Math.floor (Math.random * (maxY - step));
+        gameArea.appendChild(newApple);
+    }
+}
