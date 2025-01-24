@@ -1,11 +1,13 @@
 const snakeChar = document.getElementById("snake-body");
 const gameArea = document.getElementById("game-grid");
+const score = document.getElementById("score");
 
 let xPos = 0;
 let yPos = 0;
 let direction = "ArrowRight";
 let snakeSpeed = 500;
 let currApples = 0;
+let currScore = 0;
 
 const maxX = window.innerWidth;
 const maxY = window.innerHeight;
@@ -97,9 +99,15 @@ function populateApples() {
         console.log("Hello World");
         apple.remove();
         currApples--;
+        setScore();
     }
     // console.log(`Char x: ${snakeChar.style.left} y: ${snakeChar.style.top}`)
     // console.log(`Apple x: ${apple.style.left} y: ${apple.style.top}`)
+}
+
+function setScore() {
+    currScore++;
+    score.innerHTML = `Score: ${currScore}`;
 }
 
 function makeApple() {
